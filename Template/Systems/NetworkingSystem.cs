@@ -29,6 +29,11 @@ namespace Template.Systems
 
         public void Update(float dt)
         {
+            if (!_client.IsConnected)
+            {
+                return;
+            }
+
             _client.Update();
 
             foreach (var entity in _entities.GetEntities())
@@ -53,6 +58,13 @@ namespace Template.Systems
 
         public void Draw()
         {
+            if (!_client.IsConnected)
+            {
+                Raylib.DrawText("Not connected to server", 10, 10, 20, Color.WHITE);
+
+                return;
+            }
+
             for (int i = 0; i < _entities.Count; i++)
             {
                 var entity = _entities.GetEntities()[i];
