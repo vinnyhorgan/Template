@@ -1,6 +1,6 @@
+using Raylib_cs;
 using System;
 using System.Runtime.InteropServices;
-using Raylib_cs;
 
 namespace Template.Core
 {

@@ -1,4 +1,3 @@
-using DefaultEcs;
 using Template.Core.Transitions;
 
 namespace Template.Core

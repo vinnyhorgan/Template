@@ -1,6 +1,6 @@
+using Raylib_cs;
 using System.IO;
 using System.Reflection;
-using Raylib_cs;
 
 namespace Template.Core
 {

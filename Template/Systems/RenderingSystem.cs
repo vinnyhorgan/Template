@@ -1,5 +1,6 @@
 using DefaultEcs;
 using Raylib_cs;
+using System.Numerics;
 using Template.Components;
 using Template.Core;
 
@@ -13,17 +14,12 @@ namespace Template.Systems
         public RenderingSystem(World world)
         {
             _world = world;
-            _entities = _world.GetEntities().With<TransformComponent>().AsSet();
+            _entities = _world.GetEntities().With<TransformComponent>().With<SpriteComponent>().Without<AnimationComponent>().AsSet();
         }
 
         public void Update(float dt)
         {
-            foreach (var entity in _entities.GetEntities())
-            {
-                var transform = entity.Get<TransformComponent>();
 
-                transform.Position.X += 1;
-            }
         }
 
         public void Draw()
@@ -31,8 +27,9 @@ namespace Template.Systems
             foreach (var entity in _entities.GetEntities())
             {
                 var transform = entity.Get<TransformComponent>();
+                var sprite = entity.Get<SpriteComponent>();
 
-                Raylib.DrawRectangle((int)transform.Position.X, (int)transform.Position.Y, 32, 32, Color.RED);
+                Raylib.DrawTexturePro(sprite.Texture, new Rectangle(0, 0, sprite.Texture.width, sprite.Texture.height), new Rectangle(transform.Position.X, transform.Position.Y, sprite.Texture.width, sprite.Texture.height), new Vector2(0, 0), 0.0f, Color.WHITE);
             }
         }
     }

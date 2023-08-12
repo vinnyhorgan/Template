@@ -1,5 +1,5 @@
-using System;
 using Raylib_cs;
+using System;
 
 namespace Template.Core.Transitions
 {

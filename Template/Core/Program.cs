@@ -1,7 +1,7 @@
-﻿using System;
-using System.Numerics;
-using Raylib_cs;
+﻿using Raylib_cs;
 using Riptide.Utils;
+using System;
+using System.Numerics;
 using Template.Utility;
 
 namespace Template.Core
