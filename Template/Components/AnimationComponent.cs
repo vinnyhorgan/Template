@@ -1,5 +1,6 @@
-using System;
 using Raylib_cs;
+using System;
+using Template.Core;
 
 namespace Template.Components
 {
@@ -8,14 +9,16 @@ namespace Template.Components
         public int Columns;
         public int Rows;
         public int CurrentAnimation;
+        public Rectangle Frame;
         public int FPS = 10;
         public bool Playing = true;
         public int CurrentFrame = 0;
         public int FrameCounter = 0;
-        public Rectangle Frame;
 
-        public AnimationComponent(Texture2D texture, int columns, int rows, int currentAnimation)
+        public AnimationComponent(string filename, int columns, int rows, int currentAnimation)
         {
+            var texture = AssetManager.Instance.GetTexture(filename);
+
             Columns = columns;
             Rows = rows;
             CurrentAnimation = currentAnimation;

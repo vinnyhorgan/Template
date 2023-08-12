@@ -25,10 +25,7 @@ namespace Template.Core.Transitions
 
         public float Value
         {
-            get
-            {
-                return Raymath.Clamp(_timer / _halfDuration, 0.0f, 1.0f);
-            }
+            get { return Raymath.Clamp(_timer / _halfDuration, 0.0f, 1.0f); }
         }
 
         public virtual void Update(float dt)

@@ -1,7 +1,6 @@
 using DefaultEcs;
 using Raylib_cs;
 using System;
-using System.Numerics;
 using Template.Components;
 using Template.Core;
 

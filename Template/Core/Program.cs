@@ -8,8 +8,8 @@ namespace Template.Core
 {
     class Program
     {
-        public static int GameWidth { get; private set; } = 1280;
-        public static int GameHeight { get; private set; } = 720;
+        public static int GameWidth { get; private set; } = 800;
+        public static int GameHeight { get; private set; } = 600;
         public static Font Font { get; private set; }
         public static Vector2 Mouse { get; private set; }
 
@@ -28,26 +28,33 @@ namespace Template.Core
             RenderTexture2D target = Raylib.LoadRenderTexture(GameWidth, GameHeight);
             Raylib.SetTextureFilter(target.texture, TextureFilter.TEXTURE_FILTER_POINT);
 
-            Raylib.SetWindowIcon(Raylib.LoadImageFromTexture(AssetManager.Instance.LoadTexture("logo.png")));
+            Raylib.SetWindowIcon(Raylib.LoadImageFromTexture(AssetManager.Instance.GetTexture("logo.png")));
 
-            Font = AssetManager.Instance.LoadFont("roboto.ttf", 18);
+            Font = AssetManager.Instance.GetFont("roboto.ttf", 18);
 
-            ImguiController controller = new ImguiController();
+            var controller = new ImguiController();
             controller.Load(GameWidth, GameHeight);
 
             RiptideLogger.Initialize(Logger.Debug, Logger.Info, Logger.Warning, Logger.Error, false);
 
-            ScreenManager.Instance.LoadScreen(new Screens.GameScreen());
+            if (args.Length > 0 && args[0] == "--server")
+            {
+                ScreenManager.Instance.LoadScreen(new Screens.ServerScreen());
+            }
+            else
+            {
+                ScreenManager.Instance.LoadScreen(new Screens.GameScreen());
+            }
 
             while (!Raylib.WindowShouldClose())
             {
-                float scale = MathF.Min(
+                var scale = MathF.Min(
                     (float)Raylib.GetScreenWidth() / GameWidth,
                     (float)Raylib.GetScreenHeight() / GameHeight
                 );
 
-                Vector2 mouse = Raylib.GetMousePosition();
-                Vector2 virtualMouse = Vector2.Zero;
+                var mouse = Raylib.GetMousePosition();
+                var virtualMouse = Vector2.Zero;
                 virtualMouse.X = (mouse.X - (Raylib.GetScreenWidth() - (GameWidth * scale)) * 0.5f) / scale;
                 virtualMouse.Y = (mouse.Y - (Raylib.GetScreenHeight() - (GameHeight * scale)) * 0.5f) / scale;
 
@@ -56,7 +63,7 @@ namespace Template.Core
 
                 Mouse = virtualMouse;
 
-                float dt = Raylib.GetFrameTime();
+                var dt = Raylib.GetFrameTime();
 
                 controller.Update(dt);
 

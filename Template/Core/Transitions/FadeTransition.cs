@@ -19,12 +19,7 @@ namespace Template.Core.Transitions
                 0,
                 Raylib.GetScreenWidth(),
                 Raylib.GetScreenHeight(),
-                new Color(
-                    _color.r,
-                    _color.g,
-                    _color.b,
-                    (byte)(255 * Value)
-                )
+                new Color(_color.r, _color.g, _color.b, (byte)(255 * Value))
             );
         }
     }

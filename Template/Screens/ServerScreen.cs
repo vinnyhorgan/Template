@@ -12,8 +12,6 @@ namespace Template.Screens
         public override void Load()
         {
             _server = new Server();
-            _server.ClientConnected += ClientConnected;
-            _server.ClientDisconnected += ClientDisconnected;
             _server.MessageReceived += MessageReceived;
 
             _server.Start(7777, 10);
@@ -26,22 +24,22 @@ namespace Template.Screens
 
         public override void Draw()
         {
-            Raylib.ClearBackground(Color.SKYBLUE);
+            Raylib.DrawTextEx(Font, "Server", new Vector2(10, 10), Font.baseSize, 0, Color.WHITE);
 
             for (int i = 0; i < _server.ClientCount; i++)
             {
-                Raylib.DrawTextEx(Font, $"Client {_server.Clients[i].Id}", new Vector2(10, 10 + (i * 20)), Font.baseSize, 0, Color.WHITE);
+                Raylib.DrawTextEx(Font, $"Client {_server.Clients[i].Id}", new Vector2(10, 50 + (i * 20)), Font.baseSize, 0, Color.WHITE);
 
                 if (_server.Clients[i].IsConnected)
                 {
-                    Raylib.DrawTextEx(Font, "Connected", new Vector2(200, 10 + (i * 20)), Font.baseSize, 0, Color.GREEN);
+                    Raylib.DrawTextEx(Font, "Connected", new Vector2(200, 50 + (i * 20)), Font.baseSize, 0, Color.GREEN);
                 }
                 else
                 {
-                    Raylib.DrawTextEx(Font, "Disonnected", new Vector2(200, 10 + (i * 20)), Font.baseSize, 0, Color.RED);
+                    Raylib.DrawTextEx(Font, "Disonnected", new Vector2(200, 50 + (i * 20)), Font.baseSize, 0, Color.RED);
                 }
 
-                Raylib.DrawTextEx(Font, $"Ping: {_server.Clients[i].SmoothRTT}", new Vector2(400, 10 + (i * 20)), Font.baseSize, 0, Color.WHITE);
+                Raylib.DrawTextEx(Font, $"Ping: {_server.Clients[i].SmoothRTT}", new Vector2(400, 50 + (i * 20)), Font.baseSize, 0, Color.WHITE);
             }
         }
 
@@ -52,14 +50,6 @@ namespace Template.Screens
 
         [MessageHandler(0)]
         private static void RemoveWarning(ushort clientId, Message message)
-        {
-        }
-
-        private void ClientConnected(object sender, ServerConnectedEventArgs e)
-        {
-        }
-
-        private void ClientDisconnected(object sender, ServerDisconnectedEventArgs e)
         {
         }
 
